@@ -1,0 +1,20 @@
+﻿@inherits LayoutComponentBase
+@layout AccountLayout
+
+<div class="card card-blur page-text px-3">
+    <h1>Manage your account</h1>
+
+    <div>
+        <h2>Change your account settings</h2>
+        <hr />
+        <div class="row">
+            <div class="col-md-3">
+                <ManageNavMenu />
+            </div>
+            <div class="col-md-9">
+                @Body
+            </div>
+        </div>
+    </div>
+    <br />
+</div>

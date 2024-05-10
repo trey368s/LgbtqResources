@@ -1,0 +1,73 @@
+﻿@page "/resources/{NormalizedGroupTitle}/{NormalizedCategoryTitle}"
+@using LgbtqResources.Data.Models
+@using Microsoft.EntityFrameworkCore
+@inject AspnetLgbtqResourcesF56b40218851458a98564761b75a8b7fContext dbContext
+
+@if (category != null)
+{
+    <PageTitle>@category.Title</PageTitle>
+    <div class="page-text">
+        <h1>@category.Title</h1>
+        <p>@category.Description</p>
+        <hr />
+        @foreach (var subcategory in category.Subcatagories)
+        {
+            <h4>@subcategory.Title</h4>
+            <p>@subcategory.Description</p>
+            var resources = subcategory.Resources.ToList();
+            var batchSize = (subcategory.Resources.Count == 2 || subcategory.Resources.Count == 4) ? 2 : 3;
+            @for (var i = 0; i < resources.Count; i += batchSize)
+            {
+                <div class="row">
+                    @for (var j = i; j < Math.Min(i + batchSize, resources.Count); j++)
+                    {
+                        var resource = resources[j];
+                        <div class="col-md col-sm-12 mb-3">
+                            <div class="card card-blur page-text" style="height: 100%;">
+                                <div class="card-body" style="height: 100%;">
+                                    <h4 class="card-title"><b><a href="@resource.Url">@resource.Title</a></b></h4>
+                                    <hr />
+                                    <h6 class="card-subtitle mb-2 text-muted">@resource.Subtitle</h6>
+                                    <p class="card-text">@resource.Description</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            <hr />
+        }
+    </div>
+}
+else
+{
+    <h1>Page Not Found</h1>
+}
+
+@code {
+    Catagory category;
+
+    [Parameter]
+    public string NormalizedGroupTitle { get; set; }
+
+    [Parameter]
+    public string NormalizedCategoryTitle { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await FetchCategory();
+    }
+
+    protected async Task FetchCategory()
+    {
+        var normalizedGroupTitle = NormalizedGroupTitle.Replace("-", " ").ToLower();
+        var normalizedCategoryTitle = NormalizedCategoryTitle.Replace("-", " ").ToLower();
+
+        category = await dbContext.Catagories
+        .Include(i => i.Subcatagories)
+        .ThenInclude(i => i.Resources)
+        .FirstOrDefaultAsync(w => w.Title.ToLower() == normalizedCategoryTitle) ?? category;
+
+        StateHasChanged();
+    }
+}

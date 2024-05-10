@@ -1,0 +1,60 @@
+﻿@using LgbtqResources.Data
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity
+@inherits LayoutComponentBase
+@inject UserManager<ApplicationUser> UserManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-3">
+            <form class="d-flex">
+                <input style="background-image: linear-gradient(to right, rgb(5, 39, 103) 0%, #3a0647 70%); color: white;" class="form-control me-sm-2" type="search" placeholder="Search">
+            </form>
+            <Dropdown>
+                <DropdownToggleButton Style="background-color:#ff40a4; color:aliceblue">Manage</DropdownToggleButton>
+                <DropdownMenu Class="card-blur">
+                    <AuthorizeView>
+                        <NotAuthorized>
+                            <DropdownItem style="margin-right:0rem!important" To="/Account/Login" Type="ButtonType.Link">Login</DropdownItem>
+                        </NotAuthorized>
+                        <Authorized>
+                            <DropdownItem style="margin-right:0rem!important" To="/Account/Manage" Type="ButtonType.Link">Hello, @fullName 😊</DropdownItem>
+                        </Authorized>
+                    </AuthorizeView>
+                    <DropdownItem To="/" Type="ButtonType.Link">AI Chatbot</DropdownItem>
+                    <DropdownItem To="/" Type="ButtonType.Link">Financial Planning</DropdownItem>
+                    <DropdownItem To="https://stegeman.dev" Type="ButtonType.Link">Startpage</DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
+        </div>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+
+@code {
+    private string fullName;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        if (user.Identity.IsAuthenticated)
+        {
+            var applicationUser = await UserManager.GetUserAsync(user);
+            fullName = applicationUser.FullName;
+        }
+    }
+}

@@ -1,0 +1,115 @@
+﻿@using LgbtqResources.Data.Models
+@using Microsoft.EntityFrameworkCore;
+
+@implements IDisposable
+
+@inject NavigationManager NavigationManager
+@inject AspnetLgbtqResourcesF56b40218851458a98564761b75a8b7fContext dbContext
+
+
+<div class="top-row ps-3 navbar navbar-dark container-fluid">
+    <a class="navbar-brand" href="">LGBTQ Resources 🏳️‍🌈🏳️‍⚧️</a>
+</div>
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+
+<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+    <nav class="flex-column">
+        @if(groups != null)
+        {
+            @foreach (var group in groups)
+            {
+                bool expandSubNavForGroup = expandSubNav.ContainsKey(group.Id) ? expandSubNav[group.Id] : false;
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" @onclick="()=>ToggleSubNav(group.Id)">
+                        <span aria-hidden="true"></span><b>@group.Title</b>
+                    </NavLink>
+                    @if (expandSubNavForGroup)
+                    {
+                        <div class="nav-item">
+                            @foreach (var category in group.Catagories)
+                            {
+                                var normalizedGroupTitle = group.Title.Replace(" ", "-").ToLower();
+                                var normalizedCategoryTitle = category.Title.Replace(" ", "-").ToLower();
+                                var route = $"/resources/{normalizedGroupTitle}/{normalizedCategoryTitle}";
+                                <NavLink class="sub-nav-link px-3" href="@route">
+                                    @category.Title
+                                </NavLink>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        }
+
+        //TODO AI Chatbot
+        //TODO Financial Planning
+
+        @* 
+        <AuthorizeView>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <form action="Account/Logout" method="post">
+                        <AntiforgeryToken />
+                        <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                        <button type="submit" class="nav-link">
+                            <span class="bi bi-arrow-bar-left-nav-menu" aria-hidden="true"></span> Logout
+                        </button>
+                    </form>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="Account/Login">
+                        <span class="bi bi-person-badge-nav-menu" aria-hidden="true"></span> Login
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+        *@
+    </nav>
+</div>
+
+@code {
+    List<Group> groups;
+    private string? currentUrl;
+    Dictionary<int, bool> expandSubNav = new Dictionary<int, bool>();
+
+    protected override void OnInitialized()
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        groups = await dbContext.Groups
+        .Include(i => i.Catagories)
+        .ToListAsync();
+    }
+
+    void ToggleSubNav(int groupId)
+    {
+        if (expandSubNav.ContainsKey(groupId))
+        {
+            expandSubNav[groupId] = !expandSubNav[groupId];
+        }
+        else
+        {
+            expandSubNav.Add(groupId, true);
+        }
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+}
+
