@@ -57,7 +57,12 @@
     @* <h4>Authenticator app</h4> *@
     @if (!hasAuthenticator)
     {
-        <a href="Account/Manage/EnableAuthenticator" class="btn btn-primary">Add authenticator app</a> 
+        @* <a href="Account/Manage/EnableAuthenticator" class="btn btn-primary">Add authenticator app</a> *@
+        <form action="/account/logout" method="post">
+            <AntiforgeryToken />
+            <input type="hidden" name="returnUrl" value="@currentUrl" />
+            <button type="submit" class="btn btn-primary">Confirm</button>
+        </form>
         
     }
     else

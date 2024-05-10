@@ -1,7 +1,7 @@
 ﻿@page "/resources/{NormalizedGroupTitle}/{NormalizedCategoryTitle}"
 @using LgbtqResources.Data.Models
 @using Microsoft.EntityFrameworkCore
-@inject AspnetLgbtqResourcesF56b40218851458a98564761b75a8b7fContext dbContext
+@inject LgbtqResourcesContext dbContext
 
 @if (category != null)
 {
@@ -41,7 +41,7 @@
 }
 else
 {
-    <h1>Page Not Found</h1>
+    <h1 class="page-text">Page Not Found</h1>
 }
 
 @code {

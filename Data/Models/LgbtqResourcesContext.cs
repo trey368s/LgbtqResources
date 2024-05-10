@@ -4,14 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LgbtqResources.Data.Models;
 
-public partial class AspnetLgbtqResourcesF56b40218851458a98564761b75a8b7fContext : DbContext
+public partial class LgbtqResourcesContext : DbContext
 {
-    //Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=aspnet-LgbtqResources-f56b4021-8851-458a-9856-4761b75a8b7f;Trusted_Connection=True;MultipleActiveResultSets=true" Microsoft.EntityFrameworkCore.SqlServer -f -OutputDir Data/Models
-    public AspnetLgbtqResourcesF56b40218851458a98564761b75a8b7fContext()
+    //Scaffold-DbContext "Server=server.stegeman.trey,1433;Database=LgbtqResources;User Id=Test;Password=SQ1S3rv3r;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -f -OutputDir Data/Models
+
+    public LgbtqResourcesContext()
     {
     }
 
-    public AspnetLgbtqResourcesF56b40218851458a98564761b75a8b7fContext(DbContextOptions<AspnetLgbtqResourcesF56b40218851458a98564761b75a8b7fContext> options)
+    public LgbtqResourcesContext(DbContextOptions<LgbtqResourcesContext> options)
         : base(options)
     {
     }
@@ -26,13 +27,13 @@ public partial class AspnetLgbtqResourcesF56b40218851458a98564761b75a8b7fContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-LgbtqResources-f56b4021-8851-458a-9856-4761b75a8b7f;Trusted_Connection=True;MultipleActiveResultSets=true");
+        => optionsBuilder.UseSqlServer("Server=server.stegeman.trey,1433;Database=LgbtqResources;User Id=Test;Password=SQ1S3rv3r;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    { 
+    {
         modelBuilder.Entity<Catagory>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC07A9798DC7");
+            entity.HasKey(e => e.Id).HasName("PK__Catagori__3214EC0791AED195");
 
             entity.HasOne(d => d.Group).WithMany(p => p.Catagories)
                 .HasForeignKey(d => d.GroupId)
@@ -42,12 +43,12 @@ public partial class AspnetLgbtqResourcesF56b40218851458a98564761b75a8b7fContext
 
         modelBuilder.Entity<Group>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC07686A74B0");
+            entity.HasKey(e => e.Id).HasName("PK__Groups__3214EC07D53017E9");
         });
 
         modelBuilder.Entity<Resource>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Resource__3214EC0721F15384");
+            entity.HasKey(e => e.Id).HasName("PK__Resource__3214EC0744785158");
 
             entity.Property(e => e.Url).HasColumnName("URL");
 
@@ -59,7 +60,7 @@ public partial class AspnetLgbtqResourcesF56b40218851458a98564761b75a8b7fContext
 
         modelBuilder.Entity<Subcatagory>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Subcatag__3214EC07D8C56DD5");
+            entity.HasKey(e => e.Id).HasName("PK__Subcatag__3214EC07BBF05EF3");
 
             entity.HasOne(d => d.Catagory).WithMany(p => p.Subcatagories)
                 .HasForeignKey(d => d.CatagoryId)
