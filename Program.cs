@@ -35,7 +35,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddSignInManager()
     .AddDefaultTokenProviders();
 
-builder.Services.AddDbContext<LgbtqResourcesContext>(options =>
+builder.Services.AddDbContext<LgbtqResourcesDbContext>(options =>
         options.UseSqlServer(connectionString));
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();

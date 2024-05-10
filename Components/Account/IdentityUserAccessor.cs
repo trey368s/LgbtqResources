@@ -1,4 +1,4 @@
-using LgbtqResources.Data;
+using LgbtqResources.Data.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace LgbtqResources.Components.Account

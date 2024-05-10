@@ -1,10 +1,11 @@
 ﻿@using LgbtqResources.Data.Models
 @using Microsoft.EntityFrameworkCore;
+@using LgbtqResources.Data;
 
 @implements IDisposable
 
 @inject NavigationManager NavigationManager
-@inject LgbtqResourcesContext dbContext
+@inject LgbtqResourcesDbContext dbContext
 
 
 <div class="top-row ps-3 navbar navbar-dark container-fluid">

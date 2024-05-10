@@ -1,6 +1,6 @@
 using LgbtqResources.Components.Account.Pages;
 using LgbtqResources.Components.Account.Pages.Manage;
-using LgbtqResources.Data;
+using LgbtqResources.Data.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;

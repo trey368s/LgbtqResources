@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using LgbtqResources.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace LgbtqResources.Data.Models;
+namespace LgbtqResources.Data;
 
-public partial class LgbtqResourcesContext : DbContext
+public partial class LgbtqResourcesDbContext : DbContext
 {
     //Scaffold-DbContext "Server=server.stegeman.trey,1433;Database=LgbtqResources;User Id=Test;Password=SQ1S3rv3r;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -f -OutputDir Data/Models
 
-    public LgbtqResourcesContext()
+    public LgbtqResourcesDbContext()
     {
     }
 
-    public LgbtqResourcesContext(DbContextOptions<LgbtqResourcesContext> options)
+    public LgbtqResourcesDbContext(DbContextOptions<LgbtqResourcesDbContext> options)
         : base(options)
     {
     }

@@ -1,7 +1,8 @@
 ﻿@page "/resources/{NormalizedGroupTitle}/{NormalizedCategoryTitle}"
+@using LgbtqResources.Data
 @using LgbtqResources.Data.Models
 @using Microsoft.EntityFrameworkCore
-@inject LgbtqResourcesContext dbContext
+@inject LgbtqResourcesDbContext dbContext
 
 @if (category != null)
 {
