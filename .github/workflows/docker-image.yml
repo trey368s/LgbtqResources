@@ -21,4 +21,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: trey368s/LgbtqResources:latest, trey368s/LgbtqResources:${{ github.run_number }}
+        tags: trey368s/lgbtq-resources:latest, trey368s/lgbtq-resources:${{ github.run_number }}
