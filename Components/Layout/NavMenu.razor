@@ -33,7 +33,7 @@
                             {
                                 var normalizedGroupTitle = group.Title.Replace(" ", "-").ToLower();
                                 var normalizedCategoryTitle = category.Title.Replace(" ", "-").ToLower();
-                                var route = $"/resources/{normalizedGroupTitle}/{normalizedCategoryTitle}";
+                                var route = $"/{normalizedGroupTitle}/{normalizedCategoryTitle}";
                                 <NavLink class="sub-nav-link px-3" href="@route">
                                     @category.Title
                                 </NavLink>
