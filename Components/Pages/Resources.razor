@@ -14,7 +14,7 @@
         @foreach (var subcategory in category.Subcatagories)
         {
             <h4>@subcategory.Title</h4>
-            <p>@subcategory.Description</p>
+            <p>@((MarkupString)subcategory.Description)</p>
             var resources = subcategory.Resources.ToList();
             var batchSize = (subcategory.Resources.Count == 2 || subcategory.Resources.Count == 4) ? 2 : 3;
             @for (var i = 0; i < resources.Count; i += batchSize)
