@@ -9,7 +9,7 @@
     <PageTitle>@category.Title</PageTitle>
     <div class="page-text">
         <h1>@category.Title</h1>
-        <p>@category.Description</p>
+        <p>@((MarkupString)category.Description)</p>
         <hr />
         @foreach (var subcategory in category.Subcatagories)
         {
@@ -28,7 +28,7 @@
                                 <div class="card-body" style="height: 100%;">
                                     <h4 class="card-title"><b><a href="@resource.Url">@resource.Title</a></b></h4>
                                     <hr />
-                                    <h6 class="card-subtitle mb-2 text-muted">@resource.Subtitle</h6>
+                                    <h6 style="color:dimgray!important" class="card-subtitle mb-2 text-muted">@resource.Subtitle</h6>
                                     <p class="card-text">@resource.Description</p>
                                 </div>
                             </div>
