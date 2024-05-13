@@ -61,14 +61,20 @@ else
 
     protected async Task FetchCategory()
     {
+        category = null;
+
         var normalizedGroupTitle = NormalizedGroupTitle.Replace("-", " ").ToLower();
         var normalizedCategoryTitle = NormalizedCategoryTitle.Replace("-", " ").ToLower();
 
-        category = await dbContext.Catagories
-        .Include(i => i.Subcatagories)
-        .ThenInclude(i => i.Resources)
-        .FirstOrDefaultAsync(w => w.Title.ToLower() == normalizedCategoryTitle) ?? category;
 
+        using (var dbContext = new LgbtqResourcesDbContext())
+        {
+            category = await dbContext.Catagories
+            .Include(i => i.Subcatagories)
+            .ThenInclude(i => i.Resources)
+            .FirstOrDefaultAsync(w => w.Title.ToLower() == normalizedCategoryTitle) ?? category;
+        }
+        
         StateHasChanged();
     }
 }
