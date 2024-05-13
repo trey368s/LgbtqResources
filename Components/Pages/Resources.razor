@@ -29,7 +29,7 @@
                                     <h4 class="card-title"><b><a href="@resource.Url">@resource.Title</a></b></h4>
                                     <hr />
                                     <h6 style="color:dimgray!important" class="card-subtitle mb-2 text-muted">@resource.Subtitle</h6>
-                                    <p class="card-text">@resource.Description</p>
+                                    <p class="card-text">@((MarkupString)resource.Description)</p>
                                 </div>
                             </div>
                         </div>
