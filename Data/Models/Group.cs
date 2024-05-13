@@ -9,5 +9,7 @@ public partial class Group
 
     public string Title { get; set; } = null!;
 
+    public int? Priority { get; set; }
+
     public virtual ICollection<Catagory> Catagories { get; set; } = new List<Catagory>();
 }

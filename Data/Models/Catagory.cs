@@ -13,6 +13,8 @@ public partial class Catagory
 
     public string? Description { get; set; }
 
+    public int? Priority { get; set; }
+
     public virtual Group Group { get; set; } = null!;
 
     public virtual ICollection<Subcatagory> Subcatagories { get; set; } = new List<Subcatagory>();

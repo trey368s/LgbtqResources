@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using LgbtqResources.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace LgbtqResources.Data;
+namespace LgbtqResources.Data.Models;
 
 public partial class LgbtqResourcesDbContext : DbContext
 {

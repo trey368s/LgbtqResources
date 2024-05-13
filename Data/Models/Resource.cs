@@ -17,5 +17,7 @@ public partial class Resource
 
     public string? Url { get; set; }
 
+    public int? Priority { get; set; }
+
     public virtual Subcatagory Subcatagory { get; set; } = null!;
 }

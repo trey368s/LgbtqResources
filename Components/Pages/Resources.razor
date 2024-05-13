@@ -70,8 +70,9 @@ else
         using (var dbContext = new LgbtqResourcesDbContext())
         {
             category = await dbContext.Catagories
-            .Include(i => i.Subcatagories)
-            .ThenInclude(i => i.Resources)
+            .Include(i => i.Subcatagories.OrderByDescending(o => o.Priority))
+            .ThenInclude(i => i.Resources.OrderByDescending(o => o.Priority))
+            .OrderByDescending(o => o.Priority)
             .FirstOrDefaultAsync(w => w.Title.ToLower() == normalizedCategoryTitle) ?? category;
         }
         
