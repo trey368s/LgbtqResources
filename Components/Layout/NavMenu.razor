@@ -60,7 +60,8 @@
     protected override async Task OnInitializedAsync()
     {
         groups = await dbContext.Groups
-        .Include(i => i.Catagories)
+        .Include(i => i.Catagories.OrderByDescending(o => o.Priority))
+        .OrderByDescending(o => o.Priority)
         .ToListAsync();
     }
 
