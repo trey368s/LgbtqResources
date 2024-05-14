@@ -6,4 +6,26 @@
     <h1>Hello, world! 🌈</h1>
     <p>Welcome to your new app.</p>
     <hr>
+    <Toasts class="p-3" Style="color:black" Messages="messages" AutoHide="true" Delay="10000" Placement="ToastsPlacement.BottomRight" />
 </div>
+
+@code {
+    List<ToastMessage> messages = new List<ToastMessage>();
+
+    private void ShowMessage(ToastType toastType) => messages.Add(CreateToastMessage(toastType));
+
+    private ToastMessage CreateToastMessage(ToastType toastType)
+    => new ToastMessage
+        {
+            Type = toastType,
+            Title = "LGBTQ Resources",
+            HelpText = $"{DateTime.Now}",
+            Message = "If you are experiencing a crisis please call or text 988, or visit our crisis resources section.",
+            AutoHide = true
+        };
+
+    protected override async Task OnInitializedAsync()
+    {
+        ShowMessage(ToastType.Info);
+    }
+}
